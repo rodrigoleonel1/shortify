@@ -1,33 +1,32 @@
 "use client";
 
-import { Copy, Shovel } from "lucide-react";
+import { Copy } from "lucide-react";
 import { useState } from "react";
 
 export default function UrlForm() {
   const [url, setUrl] = useState("");
-  const [shortUrl, setShortUrl] = useState('');
+  const [shortUrl, setShortUrl] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const res = await fetch("/api/shorten", {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: url })
     });
 
     const data = await res.json();
-
+    console.log(data);
     if (data) {
-        setShortUrl(`${data}`);
+      setShortUrl(`${data}`);
     } else {
       alert("Error generating short URL");
     }
   };
 
-  const handleClick = async () =>{
+  const handleClick = async () => {
     navigator.clipboard.writeText(shortUrl);
-  }
+  };
 
   return (
     <article className="space-y-4">
@@ -55,8 +54,10 @@ export default function UrlForm() {
               {shortUrl}
             </a>
           </p>
-          <button className="rounded-md bg-white text-black px-4 py-2 text-sm font-medium shadow-sm hover:bg-white/90 flex gap-1 items-center"
-          onClick={handleClick}>
+          <button
+            className="rounded-md bg-white text-black px-4 py-2 text-sm font-medium shadow-sm hover:bg-white/90 flex gap-1 items-center"
+            onClick={handleClick}
+          >
             <Copy size={18} />
             Copy
           </button>
