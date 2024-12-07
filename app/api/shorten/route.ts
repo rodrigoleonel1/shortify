@@ -15,10 +15,6 @@ export async function GET() {
     console.log('Data:', data);
     console.log('Error:', error);
 
-    if (error || !data) {
-      return { notFound: true };
-    }
-
     return NextResponse.json(data, { status: 200 });
   } catch (error) {
     console.log("[ITEMS_GET]", error);
