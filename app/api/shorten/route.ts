@@ -44,12 +44,11 @@ export async function POST(req: Request) {
       .insert([{ original_url, short_code }])
       .select();
 
-    console.log(data);
-
     if (error) {
       console.log(error);
       return new NextResponse("DB Error", { status: 500 });
     }
+    
     return NextResponse.json(
       { short_code: data[0].short_code },
       { status: 200 }
@@ -59,12 +58,3 @@ export async function POST(req: Request) {
     return new NextResponse("Internal error", { status: 500 });
   }
 }
-
-/*
-  {
-    id: 2,
-    created_at: '2024-12-07T00:46:39.153982+00:00',
-    short_code: 'c12',
-    original_url: 'https://rodrigoleonel.vercel.app/'
-  }
-*/
