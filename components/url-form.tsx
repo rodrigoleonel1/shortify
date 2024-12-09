@@ -2,6 +2,8 @@
 
 import { Copy } from "lucide-react";
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 export default function UrlForm() {
   const [url, setUrl] = useState("");
@@ -17,18 +19,17 @@ export default function UrlForm() {
     });
 
     const data = await res.json();
-    console.log(data);
 
     if (data.short_code) {
       setShortUrl(`${window.location.origin}/${data.short_code}`);
     } else {
-      alert("Error generating short URL");
+      toast.error("Error generating short URL");
     }
   };
 
   const handleClick = async () => {
     navigator.clipboard.writeText(shortUrl);
-    alert("URL Copied to clipboard");
+    toast.success("URL Copied to clipboard");
   };
 
   return (
@@ -36,18 +37,13 @@ export default function UrlForm() {
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="url"
-          placeholder="Enter your URL"
+          placeholder="Enter your URL here"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           required
-          className="w-full rounded-md border border-white/20 bg-black/10 px-4 py-2 text-sm text-white shadow-sm focus:outline outline-2 focus:outline-white/80"
+          className="w-full rounded-md border border-white/20 bg-black/10 px-4 py-2 text-sm  shadow-sm focus:outline outline-2 focus:outline-white/80"
         />
-        <button
-          type="submit"
-          className="rounded-md bg-white text-black px-4 py-2 text-sm font-medium shadow-sm hover:bg-white/90"
-        >
-          Shorten
-        </button>
+        <Button type="submit">Shorten</Button>
       </form>
       {shortUrl && (
         <section className="flex w-full gap-2 ">
@@ -57,13 +53,10 @@ export default function UrlForm() {
               {shortUrl}
             </a>
           </p>
-          <button
-            className="rounded-md bg-white text-black px-4 py-2 text-sm font-medium shadow-sm hover:bg-white/90 flex gap-1 items-center"
-            onClick={handleClick}
-          >
+          <Button onClick={handleClick}>
             <Copy size={18} />
             Copy
-          </button>
+          </Button>
         </section>
       )}
     </article>

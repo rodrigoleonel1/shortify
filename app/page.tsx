@@ -1,52 +1,13 @@
+import FeaturesGrid from "@/components/features-grid";
+import Hero from "@/components/hero";
 import UrlForm from "@/components/url-form";
-import { Link } from "lucide-react";
 
 export default function Home() {
   return (
     <main className="min-h-screen p-4 text-center space-y-6 max-w-2xl m-auto flex flex-col justify-center">
-        <article className="space-y-4">
-          <section className="mx-auto mb-4 h-12 w-12 rounded-full flex items-center justify-center bg-white/10 ring-2 ring-white/20">
-            <Link className="h-6 w-6 text-primary" />
-          </section>
-          <h1 className="text-4xl font-bold tracking-tight">URL Shortener</h1>
-          <p className="text-muted-foreground text-lg">
-            Transform your long URLs into short, shareable links in seconds.
-          </p>
-        </article>
-
-        <UrlForm/>
-
-        <article className="pt-4">
-          <h2 className="text-xl font-semibold mb-4">
-            Why use our URL shortener?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: "Simple & Fast",
-                description: "Shorten your URLs with just one click",
-              },
-              {
-                title: "Reliable",
-                description: "Your shortened URLs never expire",
-              },
-              {
-                title: "Free",
-                description: "No hidden fees or subscription required",
-              },
-            ].map((feature) => (
-              <section
-                key={feature.title}
-                className="p-4 rounded-lg bg-black/10 border border-white/20 shadow-lg"
-              >
-                <h3 className="font-medium mb-2">{feature.title}</h3>
-                <p className="text-sm">
-                  {feature.description}
-                </p>
-              </section>
-            ))}
-          </div>
-        </article>
+      <Hero />
+      <UrlForm />
+      <FeaturesGrid />
     </main>
   );
 }
