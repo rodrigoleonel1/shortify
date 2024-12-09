@@ -1,11 +1,12 @@
 import { supabase } from "@/lib/supabaseClient";
 import { redirect } from "next/navigation";
 
-interface PageProps {
-  params: { short_code: string };
-}
-
-export default async function ShortCodePage({ params }: PageProps) {
+export default async function ShortCodePage({
+    params,
+  }: {
+    params: { short_code: string };
+  }) {
+    
   const short_code = params.short_code;
 
   const { data, error } = await supabase
