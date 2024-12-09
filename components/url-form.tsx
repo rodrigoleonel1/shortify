@@ -11,14 +11,16 @@ export default function UrlForm() {
     e.preventDefault();
 
     const res = await fetch("/api/shorten", {
-      method: "GET",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ original_url: url }),
     });
 
     const data = await res.json();
     console.log(data);
-    if (data) {
-      setShortUrl(`${data}`);
+
+    if (data.short_code) {
+      setShortUrl(`${window.location.origin}/${data.short_code}`);
     } else {
       alert("Error generating short URL");
     }
@@ -26,6 +28,7 @@ export default function UrlForm() {
 
   const handleClick = async () => {
     navigator.clipboard.writeText(shortUrl);
+    alert("URL Copied to clipboard");
   };
 
   return (
