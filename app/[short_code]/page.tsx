@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
-export default async function ShortCodePage({
+export default function ShortCodePage({
   params,
 }: {
   params: { short_code: string };
