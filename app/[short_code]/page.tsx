@@ -1,11 +1,14 @@
 import { redirect } from "next/navigation";
 import { getOriginalUrl } from "@/lib/url-service";
 
-export default async function ShortCodePage({
-  params,
-}: {
-  params: { short_code: string };
-}) {
+interface PageProps {
+  params: {
+    short_code: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function ShortCodePage({ params }: PageProps) {
   const originalUrl = await getOriginalUrl(params.short_code);
 
   if (!originalUrl) {
